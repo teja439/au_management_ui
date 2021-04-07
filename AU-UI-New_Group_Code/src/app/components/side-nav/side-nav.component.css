@@ -1,0 +1,33 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.contain {
+  box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+  transform: translate3d(0px, 0px, 0px);
+}
+
+.list
+{
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+
+.li-item :hover{
+  color: blue;
+}

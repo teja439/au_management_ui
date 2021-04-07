@@ -1,0 +1,108 @@
+<div class="example-container mat-elevation-z8 mat-elevation-z8">
+  <div fxlayout="row" fxLayoutAlign="space-between center" style="margin-left: 30%; padding-top: 3%">
+    <div fxLayoutGap="35px">
+      <button mat-raised-button color="primary" (click)="
+          exporter.exportTable('xlsx', {
+            fileName: 'Student_Attendance_Report',
+            sheet: 'Student_Attendance_Report',
+            Props: { Author: 'Abhinav' }
+          })
+        ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As EXCEL
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+          exporter.exportTable('csv', {
+            fileName: 'Student_Attendance_Report',
+            sheet: 'Student_Attendance_Report',
+            Props: { Author: 'Abhinav' }
+          })
+        ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As CSV
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+          exporter.exportTable('json', {
+            fileName: 'Student_Attendance_Report',
+            sheet: 'Student_Attendance_Report',
+            Props: { Author: 'Abhinav' }
+          })
+        ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As JSON
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+          exporter.exportTable('txt', {
+            fileName: 'Student_Attendance_Report',
+            sheet: 'Student_Attendance_Report',
+            Props: { Author: 'Abhinav' }
+          })
+        ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As TEXT
+      </button>
+    </div>
+  </div>
+  <br />
+
+  <mat-table matTableExporter #exporter="matTableExporter" [dataSource]="marksData" style="width: 100%">
+    <!-- Name Column -->
+    <ng-container matColumnDef="First Name" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{
+        row.student.studentFirstName
+        }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Last Name" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{
+        row.student.studentLastName
+        }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Email Address" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>Email Address</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{
+        row.student.studentEmail.substring(0, 16)
+        }}</mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let column of sessionHeaderName" [matColumnDef]="column">
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>{{ column }}
+      </mat-header-cell>
+      <mat-cell style="width: 100px" *matCellDef="let row">
+        <mat-form-field style="width: 20px" class="example-form-field">
+          <input matInput type="number" min="0" max="100" #marksValue value="{{ getMarks(row, column) }}" />
+        </mat-form-field>
+
+        &nbsp; / 100
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="
+              mark(
+                row,
+                row.student.studentId,
+                column,
+                getMarks(row, column),
+                marksValue.value
+              )
+            ">
+            <span>Save</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Average Column -->
+    <ng-container matColumnDef="Average" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>Average</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ getTotalMarksAverage(row) }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="headers; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: headers"></mat-row>
+  </mat-table>
+</div>

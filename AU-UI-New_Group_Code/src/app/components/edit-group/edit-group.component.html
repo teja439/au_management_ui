@@ -1,0 +1,44 @@
+
+<!-- <app-overlay-loader *ngIf="isProgressLoading" [loadText]="loadText"></app-overlay-loader> -->
+<h3 style="text-align: center; font-weight: bold;">Edit Group</h3>
+<form [formGroup]="editGroupForm">
+
+  <mat-form-field style="display:none">
+    <input matInput placeholder="Batch Id" formControlName="batchId">
+  </mat-form-field>
+
+
+  <mat-form-field style="width: 100%;">
+    <input matInput placeholder="Group Name" formControlName="studentGroupName">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;">
+    <input matInput placeholder="Project Name" formControlName="projectName">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;">
+    <input matInput placeholder="Document Url" formControlName="projectDocUrl">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;">
+    <input matInput placeholder="Project Feedback" formControlName="groupFeedback">
+  </mat-form-field>
+  <br />
+
+  <mat-form-field>
+    <mat-label> Mentor </mat-label>
+    <mat-select formControlName="trainer">
+      <mat-option *ngFor="let trainer of Trainers" [value]="trainer">
+        {{trainer.trainerName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br />
+
+<div>
+  <button mat-button mat-dialog-close color="warn">Cancel</button>
+  <button (click)="onSubmit()" mat-raised-button color="primary">
+    {{ dialogData.sessionDetails ? "Update" : "Save" }}
+  </button>
+</div>

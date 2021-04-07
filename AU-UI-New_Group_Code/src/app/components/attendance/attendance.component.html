@@ -1,0 +1,124 @@
+<div class="example-container mat-elevation-z8 mat-elevation-z8">
+  <div fxlayout="row" fxLayoutAlign="space-between center" style="margin-left: 30%; padding-top: 3%">
+    <div fxLayoutGap="35px">
+      <button mat-raised-button color="primary" (click)="
+        exporter.exportTable('xlsx', {
+          fileName: 'Student_Attendance_Report',
+          sheet: 'Student_Attendance_Report',
+          Props: { Author: 'Abhinav' }
+        })
+      ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As EXCEL
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+        exporter.exportTable('csv', {
+          fileName: 'Student_Attendance_Report',
+          sheet: 'Student_Attendance_Report',
+          Props: { Author: 'Abhinav' }
+        })
+      ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As CSV
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+        exporter.exportTable('json', {
+          fileName: 'Student_Attendance_Report',
+          sheet: 'Student_Attendance_Report',
+          Props: { Author: 'Abhinav' }
+        })
+      ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As JSON
+      </button>
+
+      <button mat-raised-button color="primary" (click)="
+        exporter.exportTable('txt', {
+          fileName: 'Student_Attendance_Report',
+          sheet: 'Student_Attendance_Report',
+          Props: { Author: 'Abhinav' }
+        })
+      ">
+        <mat-icon>cloud_download</mat-icon>&nbsp;&nbsp;Export As TEXT
+      </button>
+    </div>
+
+  </div>
+  <br />
+  <mat-table matTableExporter #exporter="matTableExporter" [dataSource]="attendanceData" style="width: 100%">
+    <!-- Name Column -->
+    <ng-container matColumnDef="First Name" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.student.studentFirstName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Last Name" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.student.studentLastName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Email Address" sticky>
+      <mat-header-cell style="width: 100px" *matHeaderCellDef>Email Address</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.student.studentEmail }}</mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let column of sessionHeaderName" [matColumnDef]="column">
+      <mat-header-cell style="min-width: 50px" *matHeaderCellDef>{{ column }}
+
+        <br />
+        {{ getTotalAttendance(column) }} / {{ total }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" [ngStyle]="{
+          color:
+            getAttendance(row, column) == 'P'
+              ? 'green'
+              : getAttendance(row, column) == 'A'
+              ? 'red'
+              : 'black'
+        }">
+        {{ getAttendance(row, column) }}
+
+        <button style="color:black" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button *ngIf="
+              getAttendance(row, column) == 'A' ||
+              getAttendance(row, column) == 'N/A'
+            " mat-menu-item (click)="
+              mark(
+                row.student.studentId,
+                column,
+                row,
+                getAttendance(row, column),
+                true
+              )
+            ">
+            <span>Mark Present</span>
+          </button>
+          <button *ngIf="
+              getAttendance(row, column) == 'P' ||
+              getAttendance(row, column) == 'N/A'
+            " mat-menu-item (click)="
+              mark(
+                row.student.studentId,
+                column,
+                row,
+                getAttendance(row, column),
+                false
+              )
+            ">
+            <span>Mark Absent</span>
+          </button>
+        </mat-menu>
+      </mat-cell>>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="headers; sticky: true"></mat-header-row>>
+    <mat-row *matRowDef="let row; columns: headers"></mat-row>>
+  </mat-table>
+</div>
+
+<!-- <button mat-raised-button (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: 'Talha'}})">Excel</button> -->
+
+<!-- <button mat-raised-button (click)="exporter.exportTable('json')">Json</button>
+<button mat-raised-button (click)="exporter.exportTable('txt')">Txt</button> -->

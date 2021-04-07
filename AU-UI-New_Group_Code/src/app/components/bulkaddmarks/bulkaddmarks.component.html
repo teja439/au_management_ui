@@ -1,0 +1,39 @@
+
+
+<div class="csv-file-chooser-section">
+    
+        <div>
+            EnterTestId:<br>
+            <mat-form-field >
+                <input matInput (change)="fileChangeListener($event,'i')" />
+              </mat-form-field><br>
+              EnterTestName:<br>  
+              <mat-form-field>
+                <input matInput  (change)="fileChangeListener($event,'n')" />
+              </mat-form-field>
+        </div>
+  
+<br>
+<br>
+<mat-form-field>
+      <div>
+        <mat-toolbar>
+            
+          <!-- Display files names -->
+          <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+  
+          <!-- Browse Button -->
+          <button mat-flat-button color="primary">Browse File</button>
+        </mat-toolbar>
+  
+        <input type="file" #fileInput id="uploadFile" (change)="fileChangeListener($event,'f')" name="uploadFile"
+          accept=".csv" />
+      </div>
+    </mat-form-field>
+    <br />
+    <button (click)="uploadFileToServer()"  mat-raised-button color="primary" disabled="{{ isDisabled }}"
+      style="margin-left: 35%">
+      <mat-icon style="margin-bottom: 5px">cloud_upload</mat-icon>&nbsp;&nbsp;Upload File
+    </button>
+  </div>
+  

@@ -1,0 +1,144 @@
+<div fxLayoutAlign="space-between center" style="padding: 20px">
+  <div></div>
+  <div fxLayoutGap="20px">
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;Asign Groups
+    </button>
+    &nbsp;&nbsp;
+  </div>
+</div>
+<mat-accordion>
+  <mat-expansion-panel hideToggle disabled>
+    <mat-expansion-panel-header>
+  <mat-panel-title>
+    Group Name
+  </mat-panel-title>
+  
+  
+  
+  <!-- <mat-panel-title style="padding-right: 50%;">
+    Trainer Name
+  </mat-panel-title> -->
+ 
+  </mat-expansion-panel-header>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion *ngFor="let element of groups">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ element.studentGroupName }}
+      </mat-panel-title>
+      <mat-panel-title>
+        {{ element.projectName}}
+      </mat-panel-title>
+      <!-- <mat-panel-title>
+        {{ element.trainerId }}
+      </mat-panel-title> -->
+      <mat-divider vertical style="height: 20px"></mat-divider>
+      <mat-panel-description>
+        <button
+          mat-button
+          matTooltip="Update Group"
+          matTooltipPosition="above"
+          (click)="editGroup(element)"
+          color="warn"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-button
+          matTooltip="Add Student"
+          matTooltipPosition="above"
+          (click)="addStudent(element)"
+          style="color: black;"
+        >
+          <mat-icon>person_add</mat-icon></button>
+          <button
+          mat-button
+          matTooltip="Submit Feedback"
+          matTooltipPosition="above"
+          (click)="feedback(element)"
+          style="color: black;"
+        >
+          <mat-icon>feedback</mat-icon></button>
+      </mat-panel-description>
+      <!-- <mat-panel-description>
+        <button
+          mat-button
+          matTooltip="Add Student"
+          matTooltipPosition="above"
+          (click)="addStudent(element)"
+          style="color: black;"
+        >
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </mat-panel-description> -->
+      <!-- <mat-panel-description>
+        <button
+          mat-button
+          matTooltip="Submit Feedback"
+          matTooltipPosition="above"
+          (click)="feedback(element)"
+          style="color: black;"
+        >
+          <mat-icon>feedback</mat-icon>
+        </button>
+      </mat-panel-description> -->
+    </mat-expansion-panel-header>
+   
+      <table mat-table [dataSource]="element.studentsList" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> FirstName </th>
+          <td mat-cell *matCellDef="let element1"> {{element1.firstName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> LastName </th>
+          <td mat-cell *matCellDef="let element1"> {{element1.lastName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email" style="margin: 5%;">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element1"> {{element1.emailId}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>   </th>
+          <td mat-cell *matCellDef="let element1"> 
+          <button
+          mat-button
+          matTooltip="Delete Student"
+          matTooltipPosition="above"
+          color="warn"
+          (click)="deleteStudent(element1, element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+        </ng-container>
+
+        
+       
+         <!-- Name Column
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> 
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     </table>
+   
+    </mat-expansion-panel>
+   <br />
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+  </mat-expansion-panel>
+</mat-accordion>

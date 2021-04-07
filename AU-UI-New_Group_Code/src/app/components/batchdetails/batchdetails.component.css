@@ -1,0 +1,13 @@
+.heading
+{
+  padding: 15px;
+  font-style: italic;
+  font-size: 2.1rem;
+  margin-bottom: 0;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+
+.containerForHeading{
+  margin-left: 40%;
+}

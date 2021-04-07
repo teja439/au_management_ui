@@ -1,0 +1,21 @@
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  div {
+    text-align: right;
+}
+.example-form {
+  min-width: 500px;
+  max-width: 500px;
+  width: 100%;
+}
+.my-class .mat-dialog-container{
+  height: 1000px;
+  width: 1000px;
+  border-radius: 10px;
+  background: lightcyan;
+  color: #039be5;
+}
+table{
+  width: 1250px;
+}

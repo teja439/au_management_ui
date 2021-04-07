@@ -1,0 +1,82 @@
+<div>
+  <h1 class="header"><b>Feedback</b></h1>
+</div>
+<!-- <app-overlay-loader *ngIf="tableIsLoading" loadText="Loading Data"></app-overlay-loader> -->
+<div>
+  <div>
+    <table mat-table [dataSource]="Data" class="mat-elevation-z8">
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell style="max-width: 100px" *matHeaderCellDef>Name</th>
+        <td mat-cell style="max-width: 100px" *matCellDef="let element">
+          {{ element.firstName }} {{ element.lastName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="marks" sticky>
+        <th mat-header-cell style="max-width: 150px" *matHeaderCellDef>
+          Marks
+        </th>
+
+        <td mat-cell style="width: 100px" *matCellDef="let row">
+          <mat-form-field style="width: 20px" class="example-form-field">
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="10"
+              #marksValue
+              value="{{ getProjectMarks(row) }}"
+              (change)="onStatusChange(row, $event, 'M')"
+            />
+          </mat-form-field>
+          &nbsp;/10
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="feedback">
+        <th mat-header-cell style="max-width: 150px" *matHeaderCellDef>
+          Feedback
+        </th>
+        <td mat-cell style="min-width: 150px" *matCellDef="let row">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              value="{{ getProjectFeedback(row) }}"
+              placeholder="feedback"
+              (change)="onStatusChange(row, $event, 'F')"
+            />
+          </mat-form-field>
+
+          <mat-divider vertical style="height: 20px"></mat-divider>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="headers"></tr>
+      <tr mat-row *matRowDef="let row; columns: headers"></tr>
+    </table>
+    <br />
+    <div>
+      <b>Group Feedback : </b
+      ><mat-form-field class="example-full-width"
+        ><input
+          matInput
+          placeholder="Feedback"
+          (change)="onStatusChange('', $event, 'G')"
+        />
+      </mat-form-field>
+    </div>
+
+    <div id="wrapper">
+      <div style="float: left">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="this.addFeedback()"
+          style="margin-bottom: 2px"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div>
+  <div class="containerForHeading">
+    <h1 class="heading">Batch : {{ batchName }}</h1>
+  </div>
+  <br />
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Sessions">
+      <app-session [batchId]="batchId"></app-session>
+    </mat-tab>
+
+    <mat-tab label="Candidates">
+      <app-students [batchId]="batchId"> </app-students>
+    </mat-tab>
+
+    <mat-tab label="Attendance">
+      <app-attendance [batchId]="batchId"></app-attendance>
+    </mat-tab>
+
+    <mat-tab label="Assignment">
+      <app-assignments [batchId]="batchId"> </app-assignments>
+    </mat-tab>
+
+    
+    <mat-tab label="Asign group">
+      <app-grouping [batchId]="batchId"> </app-grouping>
+    </mat-tab>
+
+    <mat-tab label="Final Evaluation">
+      <app-evaluation [batchId]="batchId"> </app-evaluation>
+    </mat-tab>
+
+    <mat-tab label="Charts">
+      <app-charts [batchId]="batchId"> </app-charts>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

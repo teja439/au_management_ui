@@ -1,0 +1,98 @@
+<div fxLayoutAlign="space-between center" style="padding: 20px">
+  <div>
+    <mat-form-field>
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search">
+    </mat-form-field>
+  </div>
+  <div fxLayoutGap="20px">
+
+    <button mat-raised-button color="primary" (click)="openNewSessionDialog(null)">
+      <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;Create New Session
+    </button>
+    &nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="openBulkSessionDialog()">
+      <mat-icon>cloud_upload</mat-icon>&nbsp;&nbsp;Bulk add Session
+    </button>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <mat-table matSort matSortActive="id" matSortDirection="asc" [dataSource]="dataSource" style="margin: 20px">
+    <!-- Session Start Date Column -->
+    <ng-container matColumnDef="startDate">
+      <mat-header-cell style="max-width: 150px;" mat-sort-header *matHeaderCellDef> Start Date </mat-header-cell>
+      <mat-cell style="max-width: 150px;" *matCellDef="let element">
+        {{ element.startDate | date: "mediumDate" }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Time Slot Column -->
+    <ng-container matColumnDef="Time">
+      <mat-header-cell style="max-width: 150px;" *matHeaderCellDef> Time Slot </mat-header-cell>
+      <mat-cell style="max-width: 150px;" *matCellDef="let element">
+        {{ element.daySlot == "M" ? "Morning" : "Evening" }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Session Name Column -->
+    <ng-container matColumnDef="sessionName">
+      <mat-header-cell style="max-width: 150px;" mat-sort-header *matHeaderCellDef> Session Name </mat-header-cell>
+      <mat-cell style="max-width: 150px;" *matCellDef="let element"> {{ element.sessionName }} </mat-cell>
+    </ng-container>
+
+    <!-- Created On Column -->
+    <ng-container matColumnDef="Trainer">
+      <mat-header-cell style="max-width: 150px;" mat-sort-header *matHeaderCellDef> Trainer </mat-header-cell>
+      <mat-cell style="max-width: 150px;" *matCellDef="let element">
+        {{ element.trainer.trainerName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="TrainerEmail">
+      <mat-header-cell style="max-width: 150px;" *matHeaderCellDef> Trainer Email </mat-header-cell>
+      <mat-cell style="max-width: 150px;" *matCellDef="let element">
+        {{ element.trainer.emailId }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="Actions">
+      <mat-header-cell style="min-width: 200px;" *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell style="min-width: 200px;" *matCellDef="let row">
+        <button mat-button matTooltip="Send Mail" matTooltipPosition="above" color="warn" (click)="sendEmail(row)"
+          color="primary">
+          <mat-icon>email</mat-icon>
+        </button>
+
+        <button mat-icon-button matTooltip="Calendar Invite" matTooltipPosition="above"
+          (click)="openCalendar(row.calenderInviteLink)" color="primary">
+          <mat-icon>calendar_today</mat-icon>
+        </button>
+
+        <mat-divider vertical style="height: 20px"></mat-divider>
+        <button mat-button matTooltip="Update Session" matTooltipPosition="above" (click)="openNewSessionDialog(row)"
+          color="accent">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-button matTooltip="Delete Session" matTooltipPosition="above" color="warn"
+          (click)="deleteSession(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+<div class="spinner-container" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+  " *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="10"></mat-progress-spinner>
+</div>

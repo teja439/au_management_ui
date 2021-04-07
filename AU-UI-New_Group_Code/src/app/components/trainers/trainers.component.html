@@ -1,0 +1,95 @@
+<div class="containerForHeading">
+  <h1 class="heading">Trainers</h1>
+</div>
+
+<div fxlayout="row" fxLayoutAlign="space-between center" style="padding: 20px">
+  <div>
+    <mat-form-field>
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search" />
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="openNewTrainerDialog(null)">
+    <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;Add Trainer
+  </button>
+</div>
+
+<table mat-table matSort [dataSource]="dataSource" matSort style="margin: 20px" class="mat-elevation-z8">
+  <!-- Trainer first Name Column -->
+  <ng-container matColumnDef="trainerName">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef mat-sort-header>
+      Trainer Name
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.trainerName }}</td>
+  </ng-container>
+
+  <!-- Business Unit  -->
+  <ng-container matColumnDef="BusinessUnit">
+    <th mat-header-cell *matHeaderCellDef>Business Unit</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.businessUnit.buName }}
+    </td>
+  </ng-container>
+
+  <!-- Skype Id Column -->
+  <ng-container matColumnDef="SkypeId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Skype Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.skypeId }}</td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="EmailId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
+  </ng-container>
+
+  <!-- Reporting Manager Email -->
+  <ng-container matColumnDef="ReportingManagerEmail">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Reporting Manager Email
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.reportingManagerEmailId }}
+    </td>
+  </ng-container>
+
+  <!-- BU Head Name -->
+  <!-- <ng-container matColumnDef="BU Head Name">
+    <mat-header-cell *matHeaderCellDef> BU Head Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.bu.name}} </mat-cell>
+  </ng-container> -->
+
+  <!-- BU Head Email -->
+  <!-- <ng-container matColumnDef="BU head Email">
+      <mat-header-cell *matHeaderCellDef> BU Head Email </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.bu.email}} </mat-cell>
+    </ng-container> -->
+
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-button matTooltip="Chat" matTooltipPosition="above" (click)="openSkype(row.skypeId)">
+        <mat-icon> chat</mat-icon>
+      </button>
+      <!-- <mat-divider vertical style="height: 20px"></mat-divider> -->
+      <button mat-button matTooltip="Update Trainer" matTooltipPosition="above" (click)="openNewTrainerDialog(row)"
+        color="accent">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+
+<div class="spinner-container" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+  " *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="10"></mat-progress-spinner>
+</div>

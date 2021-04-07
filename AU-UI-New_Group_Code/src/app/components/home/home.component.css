@@ -1,0 +1,46 @@
+h1 {
+  color: #333;
+  font-family: 'lato';
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  height: fit-content;
+  margin-top: 30vh;
+  position: relative;
+}
+
+h1 span {
+  font-size: 40px;
+  margin-left: 40px;
+}
+
+.typed {
+  font-family: 'lato';
+  font-weight: bolder;
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-top: 5vh;
+}
+
+.type-wrap {
+  font-size: 50px;
+  padding: 20px;
+}
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}

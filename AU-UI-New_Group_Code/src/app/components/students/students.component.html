@@ -1,0 +1,151 @@
+<div fxLayoutAlign="space-between center" style="padding: 20px">
+  <div>
+    <mat-form-field>
+      <input
+        (keyup)="applyFilter($event.target.value)"
+        matInput
+        placeholder="Search"
+      />
+    </mat-form-field>
+  </div>
+  <div fxLayoutGap="20px">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openNewStudentDialog(null)"
+    >
+      <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;Add Student
+    </button>
+    &nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="openBulkaddDialog()">
+      <mat-icon>cloud_upload</mat-icon>&nbsp;&nbsp;Bulk Add Students
+    </button>
+  </div>
+</div>
+
+<mat-table
+  matSort
+  [dataSource]="dataSource"
+  style="margin: 20px"
+  class="mat-elevation-z8"
+>
+  <!-- Student first Name Column -->
+  <ng-container matColumnDef="firstName">
+    <mat-header-cell style="max-width: 100px" mat-sort-header *matHeaderCellDef>
+      First Name
+    </mat-header-cell>
+    <mat-cell style="max-width: 100px" *matCellDef="let element">
+      {{ element.firstName }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Student LastName Column -->
+  <ng-container matColumnDef="lastName">
+    <mat-header-cell style="max-width: 100px" mat-sort-header *matHeaderCellDef>
+      Last Name
+    </mat-header-cell>
+    <mat-cell style="max-width: 100px" *matCellDef="let element">
+      {{ element.lastName }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createdOn">
+    <mat-header-cell style="min-width: 100px" mat-sort-header *matHeaderCellDef>
+      Joining Date
+    </mat-header-cell>
+    <mat-cell style="min-width: 100px" *matCellDef="let element">
+      {{ element.createdOn | date: "mediumDate" }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="emailId">
+    <mat-header-cell style="min-width: 200px" *matHeaderCellDef>
+      Email Id
+    </mat-header-cell>
+    <mat-cell style="min-width: 200px" *matCellDef="let element">
+      {{ element.emailId }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="skypeId">
+    <mat-header-cell style="max-width: 100px" *matHeaderCellDef>
+      Skype Id
+    </mat-header-cell>
+    <mat-cell style="max-width: 100px" *matCellDef="let element">
+      {{ element.skypeId }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <mat-header-cell style="max-width: 100px" mat-sort-header *matHeaderCellDef>
+      Location
+    </mat-header-cell>
+    <mat-cell style="max-width: 100px" *matCellDef="let element">
+      {{ element.location }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Actions">
+    <mat-header-cell style="min-width: 150px" *matHeaderCellDef
+      >Actions</mat-header-cell
+    >
+    <mat-cell style="min-width: 150px" *matCellDef="let row">
+      <button
+        mat-button
+        matTooltip="Chat"
+        matTooltipPosition="above"
+        (click)="openSkype(row.skypeId)"
+      >
+        <mat-icon> chat</mat-icon>
+      </button>
+
+      <mat-divider vertical style="height: 20px"></mat-divider>
+      <button
+        mat-button
+        matTooltip="Update Student"
+        matTooltipPosition="above"
+        (click)="openNewStudentDialog(row)"
+        color="accent"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-button
+        matTooltip="Delete Student"
+        matTooltipPosition="above"
+        color="warn"
+        (click)="deleteStudent(row)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<mat-paginator
+  [length]="100"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+>
+</mat-paginator>
+
+<div
+  class="spinner-container"
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+  "
+  *ngIf="isLoading"
+>
+  <mat-progress-spinner
+    mode="indeterminate"
+    diameter="50"
+    strokeWidth="10"
+  ></mat-progress-spinner>
+</div>

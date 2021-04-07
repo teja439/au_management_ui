@@ -1,0 +1,22 @@
+ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+  table{
+    width: 550px;
+  }
+
+  .mat-form-field {
+    margin-left: 10px;
+  }
+  h2.headertekst {
+    text-align: center;
+  }
+  #wrapper {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    margin-right: 38px;
+    height: 230px;
+  }
+ 

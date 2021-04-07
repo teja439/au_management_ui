@@ -1,0 +1,22 @@
+
+   table {
+    width: 900px;
+  }
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+h1.header {
+text-align: center;
+}

@@ -1,0 +1,63 @@
+<app-overlay-loader *ngIf="isProgressLoading" [loadText]="loadText"></app-overlay-loader>
+<h3 style="text-align: center; font-weight: bold;">Provide Session Details</h3>
+<form [formGroup]="newSessionForm">
+
+  <mat-form-field style="display:none">
+    <input matInput placeholder="Batch Id" formControlName="batchId">
+  </mat-form-field>
+
+  <mat-form-field style="display:none">
+    <input matInput placeholder="Session Id" formControlName="sessionId">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;">
+    <input matInput placeholder="Session Name" formControlName="sessionName">
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field>
+    <mat-label> Trainer </mat-label>
+    <mat-select formControlName="trainer">
+      <mat-option *ngFor="let trainer of Trainers" [value]="trainer">
+        {{trainer.trainerName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Time Slot</mat-label>
+    <mat-select name="timeSlot" formControlName="daySlot">
+      <mat-option value="M"> Morning </mat-option>
+      <mat-option value="E"> Evening </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field style="width: 100%;">
+    <input matInput [matDatepicker]="startDate" placeholder="Date" formControlName="startDate" />
+    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+    <mat-datepicker #startDate></mat-datepicker>
+  </mat-form-field>
+  <!--
+  <mat-form-field style="display:none">
+    <input
+      matInput
+      [matDatepicker]="endDate"
+      placeholder="End Date"
+      formControlName="endDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+    <mat-datepicker #endDate></mat-datepicker>
+  </mat-form-field> -->
+
+
+</form>
+
+<div>
+  <button mat-button mat-dialog-close color="warn">Cancel</button>
+  <button (click)="onSubmit()" mat-raised-button color="primary">
+    {{ dialogData.sessionDetails ? "Update" : "Save" }}
+  </button>
+</div>
